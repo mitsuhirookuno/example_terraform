@@ -5,11 +5,8 @@ resource "aws_instance" "default" {
   vpc_security_group_ids = [aws_security_group.default.id]
   instance_type          = var.instance_type
 
-  user_data = <<EOF
-    #!/bin/bash
-    yum install -y httpd
-    systemctl start httpd.service
-EOF
+
+  user_data = file("./user_data.sh")
 }
 
 resource "aws_security_group" "default" {
